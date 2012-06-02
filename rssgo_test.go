@@ -367,11 +367,11 @@ func TestVerify(t *testing.T) {
 
 	// SkipHours
 	rss = createValidRss()
-	rss.SkipHours.Hours = []int{}
+	rss.SkipHours = &Hours{[]int{}}
 	verifyShouldPass(rss, "Skip hours can be empty")
 
-	createValidSkipHours := func() Hours {
-		return Hours{[]int{0, 1}}
+	createValidSkipHours := func() *Hours {
+		return &Hours{[]int{0, 1}}
 	}
 
 	rss = createValidRss()
@@ -390,11 +390,11 @@ func TestVerify(t *testing.T) {
 
 	// SkipDays
 	rss = createValidRss()
-	rss.SkipDays = Days{}
+	rss.SkipDays = &Days{}
 	verifyShouldPass(rss, "Skip days can be empty")
 
-	createValidSkipDays := func() Days {
-		return Days{[]string{"Monday", "Tuesday"}}
+	createValidSkipDays := func() *Days {
+		return &Days{[]string{"Monday", "Tuesday"}}
 	}
 
 	rss = createValidRss()
@@ -629,8 +629,8 @@ func TestSerialize(t *testing.T) {
 			Description: "Text input description",
 			Name:        "The name",
 			Link:        "http://www.foo.com"},
-		SkipHours: Hours{[]int{2, 12, 14}},
-		SkipDays:  Days{[]string{"Monday", "Tuesday"}},
+		SkipHours: &Hours{[]int{2, 12, 14}},
+		SkipDays:  &Days{[]string{"Monday", "Tuesday"}},
 		Items: []Item{
 			{Title: "The title",
 				Link:        "http://www.title.com/link",

@@ -95,10 +95,10 @@ type Rss struct {
 	TextInput *TextInput `xml:"channel>textInput"`
 
 	// Optional. The hours when aggregators may not read the channel
-	SkipHours Hours `xml:"channel>skipHours"`
+	SkipHours *Hours `xml:"channel>skipHours,omitempty"`
 
 	// Optional. The days when aggregators may not read the channel
-	SkipDays Days `xml:"channel>skipDays"`
+	SkipDays *Days `xml:"channel>skipDays,omitempty"`
 
 	// Optional. The RSS feed's items
 	Items []Item `xml:"channel>item"`
@@ -365,16 +365,20 @@ at http://cyber.law.harvard.edu/rss/languages.html`)
 		}
 	}
 
-	for h := 0; h != len(r.SkipHours.Hours); h++ {
-		hour := r.SkipHours.Hours[h]
-		if err != nil || hour < 0 || hour > 23 {
-			return errors.New("The skipHour's hour must be from 0 to 23")
+	if r.SkipHours != nil {
+		for h := 0; h != len(r.SkipHours.Hours); h++ {
+			hour := r.SkipHours.Hours[h]
+			if err != nil || hour < 0 || hour > 23 {
+				return errors.New("The skipHour's hour must be from 0 to 23")
+			}
 		}
 	}
 
-	for d := 0; d != len(r.SkipDays.Days); d++ {
-		if !allowableSkipDays[r.SkipDays.Days[d]] {
-			return errors.New("Invalid skip day. Allowable skip days can be found at http://cyber.law.harvard.edu/rss/skipHoursDays.html#skiphours")
+	if r.SkipDays != nil {
+		for d := 0; d != len(r.SkipDays.Days); d++ {
+			if !allowableSkipDays[r.SkipDays.Days[d]] {
+				return errors.New("Invalid skip day. Allowable skip days can be found at http://cyber.law.harvard.edu/rss/skipHoursDays.html#skiphours")
+			}
 		}
 	}
 
