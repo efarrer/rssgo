@@ -446,7 +446,7 @@ at http://cyber.law.harvard.edu/rss/languages.html`)
 	return nil
 }
 
-const dayPrefix = "Wed, "
+const dayPrefix = "Mon, "
 const dayMonth = "02 Jan "
 const fourYear = "2006 "
 const twoYear = "06 "
