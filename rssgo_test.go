@@ -37,13 +37,13 @@ func TestParseRssDate(t *testing.T) {
 	expected := time.Date(1974, time.July, 23, 9, 10, 0, 0, time.UTC)
 	testString("23 Jul 74 09:10 UTC", expected)
 	testString("23 Jul 1974 09:10 UTC", expected)
-	testString("Wed, 23 Jul 74 09:10 UTC", expected)
-	testString("Wed, 23 Jul 1974 09:10 UTC", expected)
+	testString("Tue, 23 Jul 74 09:10 UTC", expected)
+	testString("Tue, 23 Jul 1974 09:10 UTC", expected)
 
 	expected = time.Date(1974, time.July, 23, 9, 10, 30, 0, time.UTC)
-	testString("Wed, 23 Jul 1974 09:10:30 UTC", expected)
+	testString("Tue, 23 Jul 1974 09:10:30 UTC", expected)
 
-	str := "Wed, 23 Jul 1974 09:10:30 +0700"
+	str := "Tue, 23 Jul 1974 09:10:30 +0700"
 	actual, err := ParseRssDate(str)
 	if err != nil {
 		t.Fatalf("Unexpected error (%v) when parsing %v\n", err, str)
